@@ -3,27 +3,27 @@
 
 Rainbow::Rainbow()
     : Node("blinkt_rainbow"),
-      blinkt{},
-      on_pixel{255, 255, 255, 1.0},
-      off_pixel{0, 0, 0, 1.0},
-      state{false} {
-  timer = create_wall_timer(std::chrono::milliseconds(10),
+      _blinkt{},
+      _on_pixel{255, 255, 255, 1.0},
+      _off_pixel{0, 0, 0, 1.0},
+      _state{false} {
+  _timer = create_wall_timer(std::chrono::milliseconds(10),
                             std::bind(&Rainbow::timer_callback, this));
 }
 
 void Rainbow::timer_callback() {
-  if (state) {
-    for (unsigned int i = 0; i < blinkt.number_of_pixels(); i++) {
-      blinkt.setPixel(i, on_pixel);
+  if (_state) {
+    for (unsigned int i = 0; i < _blinkt.number_of_pixels(); i++) {
+      _blinkt.setPixel(i, _on_pixel);
     }
   } else {
-    for (unsigned int i = 0; i < blinkt.number_of_pixels(); i++) {
-      blinkt.setPixel(i, off_pixel);
+    for (unsigned int i = 0; i < _blinkt.number_of_pixels(); i++) {
+      _blinkt.setPixel(i, _off_pixel);
     }
   }
 
-  blinkt.display();
-  state = not state;
+  _blinkt.display();
+  _state = not _state;
 }
 
 int main(int argc, char** argv) {

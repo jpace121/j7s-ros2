@@ -41,15 +41,15 @@ class Blinkt {
   void start_frame();
   void end_frame();
 
-  const unsigned int data_pin_number{23};
-  const unsigned int clk_pin_number{24};
-  const unsigned long sleep_time_ms{0};
+  const unsigned int _data_pin_number{23};
+  const unsigned int _clk_pin_number{24};
+  const unsigned long _sleep_time_ms{0};
 
-  std::array<BusPixel, 8> pixel_array;
+  std::array<BusPixel, 8> _pixel_array;
 
-  gpiod::chip rpi_chip;
-  gpiod::line data_line;
-  gpiod::line clk_line;
+  gpiod::chip _rpi_chip;
+  gpiod::line _data_line;
+  gpiod::line _clk_line;
 };
 
 }  // namespace blinkt_interface
