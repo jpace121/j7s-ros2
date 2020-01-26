@@ -15,10 +15,12 @@ Rainbow::Rainbow()
 void Rainbow::timer_callback()
 {
   if (_state) {
+    RCLCPP_DEBUG(get_logger(), "Turning on.");
     for (unsigned int i = 0; i < _blinkt.number_of_pixels(); i++) {
       _blinkt.setPixel(i, _on_pixel);
     }
   } else {
+    RCLCPP_DEBUG(get_logger(), "Turning off.");
     for (unsigned int i = 0; i < _blinkt.number_of_pixels(); i++) {
       _blinkt.setPixel(i, _off_pixel);
     }
