@@ -4,10 +4,12 @@
 #include <gpiod.hpp>
 #include "blinkt_interface/visibility_control.h"
 
-namespace blinkt_interface {
+namespace blinkt_interface
+{
 
 // Pixel as seen by a user of the class.
-struct Pixel {
+struct Pixel
+{
   // rgb bytes between 0-255
   uint8_t red{255};
   uint8_t green{255};
@@ -16,25 +18,28 @@ struct Pixel {
   double brightness{0.2};
 };
 
-class Blinkt {
- public:
+class Blinkt
+{
+public:
   Blinkt();
-  void setPixel(uint8_t pixel_number, const Pixel& pixel);
+  void setPixel(uint8_t pixel_number, const Pixel & pixel);
   void display();
   unsigned int number_of_pixels() const;
 
- private:
+private:
   // Pixel as packed when sent over bus.
-  struct BusPixel {
+  struct BusPixel
+  {
     uint8_t red;
     uint8_t green;
     uint8_t blue;
     uint8_t brightness;
 
     BusPixel(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness)
-        : red{red}, green{green}, blue{blue}, brightness{brightness}{}
+    : red{red}, green{green}, blue{blue}, brightness{brightness} {}
 
-      BusPixel() : red{255}, green{255}, blue{255}, brightness{255}{}
+    BusPixel()
+    : red{255}, green{255}, blue{255}, brightness{255} {}
   };
 
   void write_byte(uint8_t byte);

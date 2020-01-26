@@ -2,11 +2,12 @@
 #include "blinkt_interface/blinkt.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-class Rainbow : public rclcpp::Node {
- public:
+class Rainbow : public rclcpp::Node
+{
+public:
   Rainbow();
 
- private:
+private:
   void timer_callback();
   rclcpp::TimerBase::SharedPtr _timer;
 
