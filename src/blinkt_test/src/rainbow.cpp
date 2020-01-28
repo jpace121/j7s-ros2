@@ -18,8 +18,7 @@ Rainbow::Rainbow()
 : Node("blinkt_rainbow"),
   _blinkt{}
 {
-  declare_parameter("brightness");
-  auto brightness{get_parameter("brightness").as_double()};
+  auto brightness{declare_parameter("brightness").get<double>()};
 
   _pixels.emplace_back(255, 0, 0, brightness);    // red
   _pixels.emplace_back(0, 255, 0, brightness);    // green
