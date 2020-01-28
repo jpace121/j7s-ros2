@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "blinkt_test/rainbow.hpp"
+#include "blinkt_interface/color.hpp"
 #include <chrono>
 
 Rainbow::Rainbow()
@@ -20,12 +21,12 @@ Rainbow::Rainbow()
 {
   auto brightness{declare_parameter("brightness").get<double>()};
 
-  _pixels.emplace_back(255, 0, 0, brightness);    // red
-  _pixels.emplace_back(0, 255, 0, brightness);    // green
-  _pixels.emplace_back(0, 0, 255, brightness);    // blue
-  _pixels.emplace_back(255, 255, 0, brightness);  // red+green = yellow
-  _pixels.emplace_back(255, 0, 255, brightness);  // red+blue=purple
-  _pixels.emplace_back(0, 255, 255, brightness);  // blue+green = light blue
+  _pixels.emplace_back(blinkt_interface::color::red(brightness));
+  _pixels.emplace_back(blinkt_interface::color::green(brightness));
+  _pixels.emplace_back(blinkt_interface::color::blue(brightness));
+  _pixels.emplace_back(blinkt_interface::color::lime(brightness));
+  _pixels.emplace_back(blinkt_interface::color::white(brightness));
+  _pixels.emplace_back(blinkt_interface::color::aqua(brightness));
 
   _iter = _pixels.begin();
   _timer = create_wall_timer(std::chrono::seconds(1), std::bind(&Rainbow::timer_callback, this));
