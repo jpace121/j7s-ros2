@@ -7,7 +7,7 @@ def generate_launch_description():
         launch_ros.actions.Node(
             package='blinkt_test',
             node_executable='rainbow',
-            output='screen',
+            output='log',
             parameters=[{'brightness' : 0.5}]
         )
     ])
