@@ -25,7 +25,6 @@ private:
   rclcpp::TimerBase::SharedPtr _timer;
 
   blinkt_interface::Blinkt _blinkt;
-  blinkt_interface::Pixel _on_pixel;
-  blinkt_interface::Pixel _off_pixel;
-  bool _state;
+  std::vector<blinkt_interface::Pixel> _pixels;
+  std::vector<blinkt_interface::Pixel>::iterator _iter;
 };
