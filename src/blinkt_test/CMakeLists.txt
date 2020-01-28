@@ -39,9 +39,15 @@ ament_target_dependencies(brightness
   "blinkt_interface"
   "rclcpp"
 )
-
+# Install targets.
 install(TARGETS rainbow brightness
   EXPORT export_${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
+
+# Install launch files.
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
 
 ament_package()

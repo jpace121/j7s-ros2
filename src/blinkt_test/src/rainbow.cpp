@@ -18,12 +18,15 @@ Rainbow::Rainbow()
 : Node("blinkt_rainbow"),
   _blinkt{}
 {
-  _pixels.emplace_back(255, 0, 0, 1.0);    // red
-  _pixels.emplace_back(0, 255, 0, 1.0);    // green
-  _pixels.emplace_back(0, 0, 255, 1.0);    // blue
-  _pixels.emplace_back(255, 255, 0, 1.0);  // red+green = yellow
-  _pixels.emplace_back(255, 0, 255, 1.0);  // red+blue=purple
-  _pixels.emplace_back(0, 255, 255, 1.0);  // blue+green = light blue
+  declare_parameter("brightness");
+  auto brightness{get_parameter("brightness").as_double()};
+
+  _pixels.emplace_back(255, 0, 0, brightness);    // red
+  _pixels.emplace_back(0, 255, 0, brightness);    // green
+  _pixels.emplace_back(0, 0, 255, brightness);    // blue
+  _pixels.emplace_back(255, 255, 0, brightness);  // red+green = yellow
+  _pixels.emplace_back(255, 0, 255, brightness);  // red+blue=purple
+  _pixels.emplace_back(0, 255, 255, brightness);  // blue+green = light blue
 
   _iter = _pixels.begin();
   _timer = create_wall_timer(std::chrono::seconds(1), std::bind(&Rainbow::timer_callback, this));
