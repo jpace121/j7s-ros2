@@ -60,10 +60,10 @@ void Blinkt::write_byte(uint8_t byte)
   for (unsigned int cnt = 0; cnt < 8; cnt++) {
     _data_line.set_value(byte & 0x80);
     _clk_line.set_value(1);
-    std::this_thread::sleep_for(std::chrono::seconds(_sleep_time_ms));
+    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
     byte = byte << 1;
     _clk_line.set_value(0);
-    std::this_thread::sleep_for(std::chrono::seconds(_sleep_time_ms));
+    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
   }
 }
 
@@ -72,9 +72,9 @@ void Blinkt::start_frame()
   _data_line.set_value(0);
   for (unsigned int cnt = 0; cnt < 32; cnt++) {
     _clk_line.set_value(1);
-    std::this_thread::sleep_for(std::chrono::seconds(_sleep_time_ms));
+    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
     _clk_line.set_value(0);
-    std::this_thread::sleep_for(std::chrono::seconds(_sleep_time_ms));
+    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
   }
 }
 
@@ -83,9 +83,9 @@ void Blinkt::end_frame()
   _data_line.set_value(0);
   for (unsigned int cnt = 0; cnt < 36; cnt++) {
     _clk_line.set_value(1);
-    std::this_thread::sleep_for(std::chrono::seconds(_sleep_time_ms));
+    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
     _clk_line.set_value(0);
-    std::this_thread::sleep_for(std::chrono::seconds(_sleep_time_ms));
+    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
   }
 }
 

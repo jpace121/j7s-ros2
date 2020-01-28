@@ -66,7 +66,7 @@ private:
 
   const unsigned int _data_pin_number{23};
   const unsigned int _clk_pin_number{24};
-  const unsigned long _sleep_time_ms{0};
+  const unsigned long _sleep_time_us{0};
 
   std::array<BusPixel, 8> _pixel_array;
 
