@@ -26,8 +26,7 @@ Brightness::Brightness()
   _pixels.emplace_back(255, 0, 0, 1.0);
 
   _iter = _pixels.begin();
-  _timer =
-    create_wall_timer(std::chrono::milliseconds(10), std::bind(&Brightness::timer_callback, this));
+  _timer = create_wall_timer(std::chrono::seconds(1), std::bind(&Brightness::timer_callback, this));
 }
 
 void Brightness::timer_callback()

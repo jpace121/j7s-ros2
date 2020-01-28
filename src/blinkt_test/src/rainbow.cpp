@@ -26,8 +26,7 @@ Rainbow::Rainbow()
   _pixels.emplace_back(0, 255, 255, 1.0);  // blue+green = light blue
 
   _iter = _pixels.begin();
-  _timer =
-    create_wall_timer(std::chrono::milliseconds(10), std::bind(&Rainbow::timer_callback, this));
+  _timer = create_wall_timer(std::chrono::seconds(1), std::bind(&Rainbow::timer_callback, this));
 }
 
 void Rainbow::timer_callback()
