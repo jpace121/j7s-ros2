@@ -30,7 +30,17 @@ ament_target_dependencies(rainbow
   "rclcpp"
 )
 
-install(TARGETS rainbow
+add_executable(brightness src/brightness.cpp)
+target_include_directories(brightness PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_link_libraries(brightness blinkt_interface::blinkt)
+ament_target_dependencies(brightness
+  "blinkt_interface"
+  "rclcpp"
+)
+
+install(TARGETS rainbow brightness
   EXPORT export_${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 

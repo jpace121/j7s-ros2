@@ -11,26 +11,26 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include "blinkt_test/rainbow.hpp"
+#include "blinkt_test/brightness.hpp"
 #include <chrono>
 
-Rainbow::Rainbow()
-: Node("blinkt_rainbow"),
+Brightness::Brightness()
+: Node("blinkt_brightness"),
   _blinkt{}
 {
-  _pixels.emplace_back(255, 0, 0, 1.0);    // red
-  _pixels.emplace_back(0, 255, 0, 1.0);    // green
-  _pixels.emplace_back(0, 0, 255, 1.0);    // blue
-  _pixels.emplace_back(255, 255, 0, 1.0);  // red+green = yellow
-  _pixels.emplace_back(255, 0, 255, 1.0);  // red+blue=purple
-  _pixels.emplace_back(0, 255, 255, 1.0);  // blue+green = light blue
+  _pixels.emplace_back(255, 0, 0, 0.0);
+  _pixels.emplace_back(255, 0, 0, 0.2);
+  _pixels.emplace_back(255, 0, 0, 0.4);
+  _pixels.emplace_back(255, 0, 0, 0.6);
+  _pixels.emplace_back(255, 0, 0, 0.8);
+  _pixels.emplace_back(255, 0, 0, 1.0);
 
   _iter = _pixels.begin();
   _timer =
-    create_wall_timer(std::chrono::milliseconds(10), std::bind(&Rainbow::timer_callback, this));
+    create_wall_timer(std::chrono::milliseconds(10), std::bind(&Brightness::timer_callback, this));
 }
 
-void Rainbow::timer_callback()
+void Brightness::timer_callback()
 {
   for (unsigned int i = 0; i < _blinkt.number_of_pixels(); i++) {
     _blinkt.setPixel(i, *_iter);
@@ -49,7 +49,7 @@ void Rainbow::timer_callback()
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<Rainbow>());
+  rclcpp::spin(std::make_shared<Brightness>());
   rclcpp::shutdown();
 
   return 0;
