@@ -5,3 +5,5 @@ byte BLUE=3
 byte WHITE=4
 byte AQUA=5
 byte OFF=6
+
+byte color
