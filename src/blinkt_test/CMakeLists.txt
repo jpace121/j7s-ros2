@@ -32,6 +32,15 @@ ament_target_dependencies(show_one
   "blinkt_interface"
 )
 
+add_executable(all_off src/all_off.cpp)
+target_include_directories(all_off PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_link_libraries(all_off blinkt_interface::blinkt)
+ament_target_dependencies(all_off
+  "blinkt_interface"
+)
+
 add_executable(rainbow src/rainbow.cpp)
 target_include_directories(rainbow PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -53,7 +62,7 @@ ament_target_dependencies(brightness
 )
 
 # Install targets.
-install(TARGETS rainbow brightness show_one
+install(TARGETS rainbow brightness show_one all_off
   EXPORT export_${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 
