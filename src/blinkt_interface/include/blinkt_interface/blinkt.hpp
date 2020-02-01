@@ -24,11 +24,11 @@ namespace blinkt_interface
 struct Pixel
 {
   // rgb bytes between 0-255
-  uint8_t red{255};
-  uint8_t green{255};
-  uint8_t blue{255};
+  uint8_t red{0};
+  uint8_t green{0};
+  uint8_t blue{0};
   // brightness float between 0 and 1.0
-  double brightness{0.2};
+  double brightness{0.0};
 
   Pixel(uint8_t red, uint8_t green, uint8_t blue, double brightness)
   : red{red}, green{green}, blue{blue}, brightness{brightness}
