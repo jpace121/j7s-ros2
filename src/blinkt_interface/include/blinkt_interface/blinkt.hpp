@@ -57,7 +57,7 @@ private:
     : red{red}, green{green}, blue{blue}, brightness{brightness} {}
 
     BusPixel()
-    : red{255}, green{255}, blue{255}, brightness{255} {}
+    : red{0}, green{0}, blue{0}, brightness{0} {}
   };
 
   void write_byte(uint8_t byte);
