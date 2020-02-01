@@ -14,7 +14,7 @@
 #include "j7s/j7s-sub.hpp"
 
 J7sSub::J7sSub():
-    Node("j7s-subscriber"),
+    Node("j7s_subscriber"),
     _blinkt{},
     _stateSub{create_subscription<j7s_msgs::msg::LedState>(
                   "led_state", 1, std::bind(&J7sSub::led_callback, this, std::placeholders::_1))}

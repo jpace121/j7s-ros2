@@ -9,9 +9,13 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>blinkt_interface</depend>
-  <depend>j7s_msgs</depend>
-  <depend>rclcpp</depend>
+  <build_depend>blinkt_interface</build_depend>
+  <build_depend>j7s_msgs</build_depend>
+  <build_depend>rclcpp</build_depend>
+
+  <exec_depend>blinkt_interface</exec_depend>
+  <exec_depend>j7s_msgs</exec_depend>
+  <exec_depend>rclcpp</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

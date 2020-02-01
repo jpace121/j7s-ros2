@@ -1,3 +1,3 @@
 byte index
 Color color
-float64 brightness
+float32 brightness

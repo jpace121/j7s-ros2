@@ -17,7 +17,7 @@
 #include <cmath>
 
 J7sPub::J7sPub():
-    Node("j7s-publisher"),
+    Node("j7s_publisher"),
     _freq{declare_parameter("freq").get<double>()},
     _led_index{declare_parameter("led_index").get<long int>()},
     _color{string_to_color(declare_parameter("color").get<std::string>())},
