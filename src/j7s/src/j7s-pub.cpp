@@ -37,7 +37,7 @@ void J7sPub::timer_callback()
     j7s_msgs::msg::LedState state;
     state.color = _color;
     state.index = _led_index;
-    state.brightness = sin(_freq*_time);
+    state.brightness = 0.5*sin(_freq*_time) + 0.5;
 
     _publisher->publish(state);
 }
