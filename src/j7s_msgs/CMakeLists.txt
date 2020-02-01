@@ -19,7 +19,7 @@ find_package(ament_cmake REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
-rosidl_generate_interfaces(j7s-msgs
+rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/LedState.msg"
   "msg/Color.msg"
   DEPENDENCIES builtin_interfaces
