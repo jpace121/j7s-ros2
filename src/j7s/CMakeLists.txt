@@ -30,9 +30,9 @@ target_include_directories(j7s-sub PUBLIC
   $<INSTALL_INTERFACE:include>)
 ament_target_dependencies(
   j7s-sub
-  "rclcpp"
-  "blinkt_interface"
-  "j7s_msgs"
+  rclcpp
+  blinkt_interface
+  j7s_msgs
 )
 
 add_executable(j7s-pub src/j7s-pub.cpp)
@@ -41,8 +41,8 @@ target_include_directories(j7s-pub PUBLIC
   $<INSTALL_INTERFACE:include>)
 ament_target_dependencies(
   j7s-pub
-  "rclcpp"
-  "j7s_msgs"
+  rclcpp
+  j7s_msgs
 )
 
 install(TARGETS j7s-sub j7s-pub
