@@ -35,7 +35,17 @@ ament_target_dependencies(
   "j7s_msgs"
 )
 
-install(TARGETS j7s-sub
+add_executable(j7s-pub src/j7s-pub.cpp)
+target_include_directories(j7s-pub PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+ament_target_dependencies(
+  j7s-pub
+  "rclcpp"
+  "j7s_msgs"
+)
+
+install(TARGETS j7s-sub j7s-pub
   EXPORT export_${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 
