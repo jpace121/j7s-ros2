@@ -23,6 +23,15 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(blinkt_interface REQUIRED)
 
+add_executable(show_one src/show_one.cpp)
+target_include_directories(show_one PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_link_libraries(show_one blinkt_interface::blinkt)
+ament_target_dependencies(show_one
+  "blinkt_interface"
+)
+
 add_executable(rainbow src/rainbow.cpp)
 target_include_directories(rainbow PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -42,8 +51,9 @@ ament_target_dependencies(brightness
   "blinkt_interface"
   "rclcpp"
 )
+
 # Install targets.
-install(TARGETS rainbow brightness
+install(TARGETS rainbow brightness show_one
   EXPORT export_${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 
