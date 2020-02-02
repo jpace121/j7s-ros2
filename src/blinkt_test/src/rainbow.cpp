@@ -11,48 +11,39 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include "blinkt_test/rainbow.hpp"
+#include "blinkt_interface/blinkt.hpp"
 #include "blinkt_interface/color.hpp"
 #include <chrono>
+#include <thread>
 
-Rainbow::Rainbow()
-: Node("blinkt_rainbow"),
-  _blinkt{}
+using namespace std::chrono_literals;
+
+int main(int argc, char *argv[])
 {
-  auto brightness{declare_parameter("brightness").get<double>()};
+    (void) argc;
+    (void) argv;
 
-  _pixels.emplace_back(blinkt_interface::color::red(brightness));
-  _pixels.emplace_back(blinkt_interface::color::green(brightness));
-  _pixels.emplace_back(blinkt_interface::color::blue(brightness));
-  _pixels.emplace_back(blinkt_interface::color::lime(brightness));
-  _pixels.emplace_back(blinkt_interface::color::white(brightness));
-  _pixels.emplace_back(blinkt_interface::color::aqua(brightness));
+    constexpr double brightness{0.5};
+    blinkt_interface::Blinkt blinkt{};
 
-  _iter = _pixels.begin();
-  _timer = create_wall_timer(std::chrono::seconds(1), std::bind(&Rainbow::timer_callback, this));
-}
+    std::vector<blinkt_interface::Pixel> pixels;
+    pixels.emplace_back(blinkt_interface::color::red(brightness));
+    pixels.emplace_back(blinkt_interface::color::green(brightness));
+    pixels.emplace_back(blinkt_interface::color::blue(brightness));
+    pixels.emplace_back(blinkt_interface::color::lime(brightness));
+    pixels.emplace_back(blinkt_interface::color::white(brightness));
+    pixels.emplace_back(blinkt_interface::color::aqua(brightness));
 
-void Rainbow::timer_callback()
-{
-  for (unsigned int i = 0; i < _blinkt.number_of_pixels(); i++) {
-    _blinkt.setPixel(i, *_iter);
-  }
+    for(const auto& pixel : pixels)
+    {
+        for (unsigned int i = 0; i < blinkt.number_of_pixels(); i++)
+        {
+            blinkt.setPixel(i, pixel);
+        }
+        blinkt.display();
 
-  _iter++;
-  if (_iter == _pixels.end()) {
-    _iter = _pixels.begin();
-  }
+        std::this_thread::sleep_for(1s);
+    }
 
-  RCLCPP_INFO(get_logger(), "Switching.");
-
-  _blinkt.display();
-}
-
-int main(int argc, char ** argv)
-{
-  rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<Rainbow>());
-  rclcpp::shutdown();
-
-  return 0;
+    return 0;
 }

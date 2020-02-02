@@ -20,6 +20,9 @@ using namespace std::chrono_literals;
 
 int main(int argc, char *argv[])
 {
+    (void) argc;
+    (void) argv;
+
     blinkt_interface::Blinkt blinkt{};
 
     for(int i = 0; i < blinkt.number_of_pixels(); i++)

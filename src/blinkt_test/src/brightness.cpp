@@ -11,45 +11,37 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include "blinkt_test/brightness.hpp"
+#include "blinkt_interface/blinkt.hpp"
 #include <chrono>
+#include <thread>
 
-Brightness::Brightness()
-: Node("blinkt_brightness"),
-  _blinkt{}
+using namespace std::chrono_literals;
+
+int main(int argc, char *argv[])
 {
-  _pixels.emplace_back(255, 0, 0, 0.0);
-  _pixels.emplace_back(255, 0, 0, 0.2);
-  _pixels.emplace_back(255, 0, 0, 0.4);
-  _pixels.emplace_back(255, 0, 0, 0.6);
-  _pixels.emplace_back(255, 0, 0, 0.8);
-  _pixels.emplace_back(255, 0, 0, 1.0);
+    (void) argc;
+    (void) argv;
 
-  _iter = _pixels.begin();
-  _timer = create_wall_timer(std::chrono::seconds(1), std::bind(&Brightness::timer_callback, this));
-}
+    blinkt_interface::Blinkt blinkt{};
 
-void Brightness::timer_callback()
-{
-  for (unsigned int i = 0; i < _blinkt.number_of_pixels(); i++) {
-    _blinkt.setPixel(i, *_iter);
-  }
+    std::vector<blinkt_interface::Pixel> pixels;
+    pixels.emplace_back(255, 0, 0, 0.0);
+    pixels.emplace_back(255, 0, 0, 0.2);
+    pixels.emplace_back(255, 0, 0, 0.4);
+    pixels.emplace_back(255, 0, 0, 0.6);
+    pixels.emplace_back(255, 0, 0, 0.8);
+    pixels.emplace_back(255, 0, 0, 1.0);
 
-  _iter++;
-  if (_iter == _pixels.end()) {
-    _iter = _pixels.begin();
-  }
+    for(const auto& pixel : pixels)
+    {
+        for (unsigned int i = 0; i < blinkt.number_of_pixels(); i++)
+        {
+            blinkt.setPixel(i, pixel);
+        }
+        blinkt.display();
 
-  RCLCPP_INFO(get_logger(), "Switching.");
+        std::this_thread::sleep_for(1s);
+    }
 
-  _blinkt.display();
-}
-
-int main(int argc, char ** argv)
-{
-  rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<Brightness>());
-  rclcpp::shutdown();
-
-  return 0;
+    return 0;
 }
