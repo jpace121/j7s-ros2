@@ -20,6 +20,24 @@
 namespace blinkt_interface
 {
 
+// Pixel as packed when sent over bus.
+struct BusPixel
+{
+  uint8_t red;
+  uint8_t green;
+  uint8_t blue;
+  uint8_t brightness;
+
+  BusPixel(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness)
+  : red{red}, green{green}, blue{blue}, brightness{brightness} {}
+
+  BusPixel()
+  : red{0}, green{0}, blue{0}, brightness{0} {}
+};
+
+
+typedef std::array<BusPixel, 8> BusPixelArray;
+
 // Pixel as seen by a user of the class.
 struct Pixel
 {
@@ -34,6 +52,14 @@ struct Pixel
   : red{red}, green{green}, blue{blue}, brightness{brightness}
   {
   }
+
+  BusPixel toBusPixel() const
+  {
+    return BusPixel(
+      red, green, blue,
+      static_cast<uint8_t>(
+        0b11100000 | (static_cast<uint8_t>(brightness * 31.0) & 0x1F)) );
+  }
 };
 
 class Blinkt
@@ -41,25 +67,11 @@ class Blinkt
 public:
   Blinkt();
   void setPixel(uint8_t pixel_number, const Pixel & pixel);
+  BusPixelArray & getBusPixelArray();
   void display();
   unsigned int number_of_pixels() const;
 
 private:
-  // Pixel as packed when sent over bus.
-  struct BusPixel
-  {
-    uint8_t red;
-    uint8_t green;
-    uint8_t blue;
-    uint8_t brightness;
-
-    BusPixel(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness)
-    : red{red}, green{green}, blue{blue}, brightness{brightness} {}
-
-    BusPixel()
-    : red{0}, green{0}, blue{0}, brightness{0} {}
-  };
-
   void write_byte(uint8_t byte);
   void start_frame();
   void end_frame();
@@ -68,7 +80,7 @@ private:
   const unsigned int _clk_pin_number{24};
   const unsigned long _sleep_time_us{0};
 
-  std::array<BusPixel, 8> _pixel_array;
+  BusPixelArray _pixel_array;
 
   gpiod::chip _rpi_chip;
   gpiod::line _data_line;

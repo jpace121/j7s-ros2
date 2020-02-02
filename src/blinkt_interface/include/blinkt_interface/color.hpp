@@ -22,39 +22,39 @@ namespace blinkt_interface
 namespace color
 {
 
-    Pixel red(double brightness)
-    {
-        return Pixel(255, 0, 0, brightness);
-    }
+Pixel red(double brightness)
+{
+  return Pixel(255, 0, 0, brightness);
+}
 
-    Pixel lime(double brightness)
-    {
-        return Pixel(0, 255, 0, brightness);
-    }
+Pixel lime(double brightness)
+{
+  return Pixel(0, 255, 0, brightness);
+}
 
-    Pixel green(double brightness)
-    {
-        return Pixel(0, 125, 0, brightness);
-    }
+Pixel green(double brightness)
+{
+  return Pixel(0, 125, 0, brightness);
+}
 
-    Pixel blue(double brightness)
-    {
-        return Pixel(0, 0, 255, brightness);
-    }
+Pixel blue(double brightness)
+{
+  return Pixel(0, 0, 255, brightness);
+}
 
-    Pixel white(double brightness)
-    {
-        return Pixel(255, 255, 255, brightness);
-    }
+Pixel white(double brightness)
+{
+  return Pixel(255, 255, 255, brightness);
+}
 
-    Pixel aqua(double brightness)
-    {
-        return Pixel(0, 255, 255, brightness);
-    }
+Pixel aqua(double brightness)
+{
+  return Pixel(0, 255, 255, brightness);
+}
 
-    Pixel off(double brightness)
-    {
-        return Pixel(0, 0, 0, brightness);
-    }
+Pixel off(double brightness)
+{
+  return Pixel(0, 0, 0, brightness);
+}
 }
 }  // namespace blinkt_interface

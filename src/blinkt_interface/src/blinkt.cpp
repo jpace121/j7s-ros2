@@ -33,14 +33,14 @@ unsigned int Blinkt::number_of_pixels() const
   return _pixel_array.size();
 }
 
+BusPixelArray & Blinkt::getBusPixelArray()
+{
+  return _pixel_array;
+}
+
 void Blinkt::setPixel(uint8_t pixel_number, const Pixel & pixel)
 {
-  BusPixel bus_pixel(
-    pixel.red, pixel.green, pixel.blue,
-    static_cast<uint8_t>(
-      0b11100000 | (static_cast<uint8_t>(pixel.brightness * 31.0) & 0x1F)) );
-
-  _pixel_array[pixel_number] = bus_pixel;
+  _pixel_array[pixel_number] = pixel.toBusPixel();
 }
 
 void Blinkt::display()
