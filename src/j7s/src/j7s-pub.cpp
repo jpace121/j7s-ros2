@@ -40,7 +40,7 @@ void J7sPub::timer_callback()
   state.index = _led_index;
   state.brightness = _brightness;
 
-  if (sin(_freq * _time) > 0) {
+  if (sin(2 * M_PI * _freq * _time) > 0) {
     state.color = _color;
   } else {
     state.color = string_to_color("off");
