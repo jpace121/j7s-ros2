@@ -28,8 +28,10 @@ public:
 private:
   blinkt_interface::Blinkt _blinkt;
   rclcpp::Subscription<j7s_msgs::msg::LedState>::SharedPtr _stateSub;
+  rclcpp::TimerBase::SharedPtr _timer;
+  const double _disp_freq;
 
   void led_callback(j7s_msgs::msg::LedState::SharedPtr msg);
+  void timer_callback();
   blinkt_interface::Pixel msg_to_pixel(const j7s_msgs::msg::Color & color, double brightness) const;
-
 };
