@@ -23,12 +23,13 @@
 class J7sSub : public rclcpp::Node
 {
 public:
-    J7sSub();
-private:
-    blinkt_interface::Blinkt _blinkt;
-    rclcpp::Subscription<j7s_msgs::msg::LedState>::SharedPtr _stateSub;
+  J7sSub();
 
-    void led_callback(j7s_msgs::msg::LedState::SharedPtr msg);
-    blinkt_interface::Pixel msg_to_pixel(const j7s_msgs::msg::Color& color, double brightness) const;
+private:
+  blinkt_interface::Blinkt _blinkt;
+  rclcpp::Subscription<j7s_msgs::msg::LedState>::SharedPtr _stateSub;
+
+  void led_callback(j7s_msgs::msg::LedState::SharedPtr msg);
+  blinkt_interface::Pixel msg_to_pixel(const j7s_msgs::msg::Color & color, double brightness) const;
 
 };

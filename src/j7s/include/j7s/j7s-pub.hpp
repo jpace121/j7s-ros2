@@ -20,17 +20,18 @@
 class J7sPub : public rclcpp::Node
 {
 public:
-    J7sPub();
+  J7sPub();
+
 private:
-    const double _freq;
-    const long int _led_index;
-    const j7s_msgs::msg::Color _color;
-    double _time;
-    const double _pub_freq;
+  const double _freq;
+  const long int _led_index;
+  const j7s_msgs::msg::Color _color;
+  double _time;
+  const double _pub_freq;
 
-    rclcpp::Publisher<j7s_msgs::msg::LedState>::SharedPtr _publisher;
-    rclcpp::TimerBase::SharedPtr _timer;
+  rclcpp::Publisher<j7s_msgs::msg::LedState>::SharedPtr _publisher;
+  rclcpp::TimerBase::SharedPtr _timer;
 
-    void timer_callback();
-    j7s_msgs::msg::Color string_to_color(const std::string& st) const;
+  void timer_callback();
+  j7s_msgs::msg::Color string_to_color(const std::string & st) const;
 };
