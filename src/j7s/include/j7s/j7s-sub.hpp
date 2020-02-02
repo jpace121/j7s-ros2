@@ -20,12 +20,15 @@
 
 #include "rclcpp/rclcpp.hpp"
 
+#include <mutex>
+
 class J7sSub : public rclcpp::Node
 {
 public:
   J7sSub();
 
 private:
+  std::mutex _blinkt_mutex;
   blinkt_interface::Blinkt _blinkt;
   rclcpp::Subscription<j7s_msgs::msg::LedState>::SharedPtr _stateSub;
   rclcpp::TimerBase::SharedPtr _timer;
