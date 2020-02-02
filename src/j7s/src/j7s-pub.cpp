@@ -22,6 +22,7 @@ J7sPub::J7sPub()
   _led_index{declare_parameter("led_index").get<long int>()},
   _color{string_to_color(declare_parameter("color").get<std::string>())},
   _pub_freq{declare_parameter("pub_freq").get<double>()},
+  _brightness{declare_parameter("brightness").get<double>()},
   _publisher{create_publisher<j7s_msgs::msg::LedState>("led_state", 1)},
   _timer{}
 {
@@ -36,9 +37,14 @@ void J7sPub::timer_callback()
   _time = _time + (1.0 / _pub_freq);
 
   j7s_msgs::msg::LedState state;
-  state.color = _color;
   state.index = _led_index;
-  state.brightness = 0.5 * sin(_freq * _time) + 0.5;
+  state.brightness = _brightness;
+
+  if (sin(_freq * _time) > 0) {
+    state.color = _color;
+  } else {
+    state.color = string_to_color("off");
+  }
 
   _publisher->publish(state);
 }

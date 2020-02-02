@@ -8,10 +8,11 @@ def generate_launch_description():
             node_executable='j7s-pub',
             output='log',
             parameters=[{
-                'freq' : 100.0,
+                'freq': 100.0,
                 'led_index': 1,
                 'color': 'aqua',
-                'pub_freq':10.0
+                'pub_freq': 10.0,
+                'brightness': 0.5
             }],
             remappings = [
                 ('led_state', 'j7s_led_state')

@@ -19,7 +19,7 @@ J7sSub::J7sSub()
   _stateSub{create_subscription<j7s_msgs::msg::LedState>(
       "led_state", 1, std::bind(&J7sSub::led_callback, this, std::placeholders::_1))}
 {
-    _blinkt.clear();
+  _blinkt.clear();
 }
 
 void J7sSub::led_callback(j7s_msgs::msg::LedState::SharedPtr msg)

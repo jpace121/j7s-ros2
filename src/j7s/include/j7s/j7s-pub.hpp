@@ -28,6 +28,7 @@ private:
   const j7s_msgs::msg::Color _color;
   double _time;
   const double _pub_freq;
+  const double _brightness;
 
   rclcpp::Publisher<j7s_msgs::msg::LedState>::SharedPtr _publisher;
   rclcpp::TimerBase::SharedPtr _timer;
