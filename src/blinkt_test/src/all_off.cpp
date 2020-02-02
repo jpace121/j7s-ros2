@@ -14,18 +14,17 @@
 #include "blinkt_interface/blinkt.hpp"
 #include "blinkt_interface/color.hpp"
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
-    (void) argc;
-    (void) argv;
+  (void) argc;
+  (void) argv;
 
-    blinkt_interface::Blinkt blinkt{};
+  blinkt_interface::Blinkt blinkt{};
 
-    for(int i = 0; i < blinkt.number_of_pixels(); i++)
-    {
-        blinkt.setPixel(i, blinkt_interface::color::off(0.0));
-    }
+  for (auto & bus_pixel : blinkt.getBusPixelArray()) {
+    bus_pixel = blinkt_interface::color::off(0.0).toBusPixel();
+  }
 
-    blinkt.display();
-    return 0;
+  blinkt.display();
+  return 0;
 }

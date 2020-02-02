@@ -18,32 +18,30 @@
 
 using namespace std::chrono_literals;
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
-    (void) argc;
-    (void) argv;
+  (void) argc;
+  (void) argv;
 
-    constexpr double brightness{0.5};
-    blinkt_interface::Blinkt blinkt{};
+  constexpr double brightness{0.5};
+  blinkt_interface::Blinkt blinkt{};
 
-    std::vector<blinkt_interface::Pixel> pixels;
-    pixels.emplace_back(blinkt_interface::color::red(brightness));
-    pixels.emplace_back(blinkt_interface::color::green(brightness));
-    pixels.emplace_back(blinkt_interface::color::blue(brightness));
-    pixels.emplace_back(blinkt_interface::color::lime(brightness));
-    pixels.emplace_back(blinkt_interface::color::white(brightness));
-    pixels.emplace_back(blinkt_interface::color::aqua(brightness));
+  std::vector<blinkt_interface::Pixel> pixels;
+  pixels.emplace_back(blinkt_interface::color::red(brightness));
+  pixels.emplace_back(blinkt_interface::color::green(brightness));
+  pixels.emplace_back(blinkt_interface::color::blue(brightness));
+  pixels.emplace_back(blinkt_interface::color::lime(brightness));
+  pixels.emplace_back(blinkt_interface::color::white(brightness));
+  pixels.emplace_back(blinkt_interface::color::aqua(brightness));
 
-    for(const auto& pixel : pixels)
-    {
-        for (unsigned int i = 0; i < blinkt.number_of_pixels(); i++)
-        {
-            blinkt.setPixel(i, pixel);
-        }
-        blinkt.display();
-
-        std::this_thread::sleep_for(1s);
+  for (const auto & pixel : pixels) {
+    for (auto & bus_pixel : blinkt.getBusPixelArray()) {
+      bus_pixel = pixel.toBusPixel();
     }
+    blinkt.display();
 
-    return 0;
+    std::this_thread::sleep_for(1s);
+  }
+
+  return 0;
 }

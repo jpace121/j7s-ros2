@@ -17,31 +17,29 @@
 
 using namespace std::chrono_literals;
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
-    (void) argc;
-    (void) argv;
+  (void) argc;
+  (void) argv;
 
-    blinkt_interface::Blinkt blinkt{};
+  blinkt_interface::Blinkt blinkt{};
 
-    std::vector<blinkt_interface::Pixel> pixels;
-    pixels.emplace_back(255, 0, 0, 0.0);
-    pixels.emplace_back(255, 0, 0, 0.2);
-    pixels.emplace_back(255, 0, 0, 0.4);
-    pixels.emplace_back(255, 0, 0, 0.6);
-    pixels.emplace_back(255, 0, 0, 0.8);
-    pixels.emplace_back(255, 0, 0, 1.0);
+  std::vector<blinkt_interface::Pixel> pixels;
+  pixels.emplace_back(255, 0, 0, 0.0);
+  pixels.emplace_back(255, 0, 0, 0.2);
+  pixels.emplace_back(255, 0, 0, 0.4);
+  pixels.emplace_back(255, 0, 0, 0.6);
+  pixels.emplace_back(255, 0, 0, 0.8);
+  pixels.emplace_back(255, 0, 0, 1.0);
 
-    for(const auto& pixel : pixels)
-    {
-        for (unsigned int i = 0; i < blinkt.number_of_pixels(); i++)
-        {
-            blinkt.setPixel(i, pixel);
-        }
-        blinkt.display();
-
-        std::this_thread::sleep_for(1s);
+  for (const auto & pixel : pixels) {
+    for (auto & bus_pixel : blinkt.getBusPixelArray()) {
+      bus_pixel = pixel.toBusPixel();
     }
+    blinkt.display();
 
-    return 0;
+    std::this_thread::sleep_for(1s);
+  }
+
+  return 0;
 }
