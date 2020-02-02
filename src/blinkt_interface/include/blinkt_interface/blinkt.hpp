@@ -69,6 +69,7 @@ public:
   void setPixel(uint8_t pixel_number, const Pixel & pixel);
   BusPixelArray & getBusPixelArray();
   void display();
+  void clear();
   unsigned int number_of_pixels() const;
 
 private:

@@ -38,6 +38,15 @@ BusPixelArray & Blinkt::getBusPixelArray()
   return _pixel_array;
 }
 
+void Blinkt::clear()
+{
+  const Pixel offPixel(0, 0, 0, 0);
+  for (auto & bus_pixel : _pixel_array) {
+    bus_pixel = offPixel.toBusPixel();
+  }
+  display();
+}
+
 void Blinkt::setPixel(uint8_t pixel_number, const Pixel & pixel)
 {
   _pixel_array[pixel_number] = pixel.toBusPixel();

@@ -20,11 +20,7 @@ int main(int argc, char * argv[])
   (void) argv;
 
   blinkt_interface::Blinkt blinkt{};
+  blinkt.clear();
 
-  for (auto & bus_pixel : blinkt.getBusPixelArray()) {
-    bus_pixel = blinkt_interface::color::off(0.0).toBusPixel();
-  }
-
-  blinkt.display();
   return 0;
 }
