@@ -25,11 +25,11 @@ int main(int argc, char * argv[])
 
   blinkt_interface::Blinkt blinkt{};
 
-  for (auto & bus_pixel : blinkt.getBusPixelArray()) {
-    bus_pixel = blinkt_interface::color::red(0.5).toBusPixel();
+  for (auto & pixel : blinkt.getPixelArray()) {
+    pixel = blinkt_interface::color::red(0.5);
     blinkt.display();
     std::this_thread::sleep_for(1s);
-    bus_pixel = blinkt_interface::color::off(0.5).toBusPixel();
+    pixel = blinkt_interface::color::off(0.5);
     blinkt.display();
   }
   return 0;

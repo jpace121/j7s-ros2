@@ -35,23 +35,26 @@ struct BusPixel
   : red{0}, green{0}, blue{0}, brightness{0} {}
 };
 
-
-typedef std::array<BusPixel, 8> BusPixelArray;
-
 // Pixel as seen by a user of the class.
 struct Pixel
 {
   // rgb bytes between 0-255
-  uint8_t red{0};
-  uint8_t green{0};
-  uint8_t blue{0};
+  uint8_t red;
+  uint8_t green;
+  uint8_t blue;
   // brightness float between 0 and 1.0
-  double brightness{0.0};
+  double brightness;
 
   Pixel(uint8_t red, uint8_t green, uint8_t blue, double brightness)
   : red{red}, green{green}, blue{blue}, brightness{brightness}
   {
   }
+
+  Pixel()
+  : red{0}, green{0}, blue{0}, brightness{0}
+  {
+  }
+
 
   BusPixel toBusPixel() const
   {
@@ -62,12 +65,14 @@ struct Pixel
   }
 };
 
+typedef std::array<Pixel, 8> PixelArray;
+
 class Blinkt
 {
 public:
   Blinkt();
   void setPixel(uint8_t pixel_number, const Pixel & pixel);
-  BusPixelArray & getBusPixelArray();
+  PixelArray & getPixelArray();
   void display();
   void clear();
   unsigned int number_of_pixels() const;
@@ -81,7 +86,7 @@ private:
   const unsigned int _clk_pin_number{24};
   const unsigned long _sleep_time_us{0};
 
-  BusPixelArray _pixel_array;
+  PixelArray _pixel_array;
 
   gpiod::chip _rpi_chip;
   gpiod::line _data_line;

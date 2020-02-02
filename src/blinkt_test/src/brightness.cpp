@@ -32,9 +32,9 @@ int main(int argc, char * argv[])
   pixels.emplace_back(255, 0, 0, 0.8);
   pixels.emplace_back(255, 0, 0, 1.0);
 
-  for (const auto & pixel : pixels) {
-    for (auto & bus_pixel : blinkt.getBusPixelArray()) {
-      bus_pixel = pixel.toBusPixel();
+  for (const auto & color_pixel : pixels) {
+    for (auto & pixel : blinkt.getPixelArray()) {
+      pixel = color_pixel;
     }
     blinkt.display();
 

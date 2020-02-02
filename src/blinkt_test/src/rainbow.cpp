@@ -34,9 +34,9 @@ int main(int argc, char * argv[])
   pixels.emplace_back(blinkt_interface::color::white(brightness));
   pixels.emplace_back(blinkt_interface::color::aqua(brightness));
 
-  for (const auto & pixel : pixels) {
-    for (auto & bus_pixel : blinkt.getBusPixelArray()) {
-      bus_pixel = pixel.toBusPixel();
+  for (const auto & color_pixel : pixels) {
+    for (auto & pixel : blinkt.getPixelArray()) {
+      pixel = color_pixel;
     }
     blinkt.display();
 

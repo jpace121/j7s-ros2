@@ -33,7 +33,7 @@ unsigned int Blinkt::number_of_pixels() const
   return _pixel_array.size();
 }
 
-BusPixelArray & Blinkt::getBusPixelArray()
+PixelArray & Blinkt::getPixelArray()
 {
   return _pixel_array;
 }
@@ -41,21 +41,29 @@ BusPixelArray & Blinkt::getBusPixelArray()
 void Blinkt::clear()
 {
   const Pixel offPixel(0, 0, 0, 0);
-  for (auto & bus_pixel : _pixel_array) {
-    bus_pixel = offPixel.toBusPixel();
+  for (auto & pixel : _pixel_array) {
+    pixel = offPixel;
   }
   display();
 }
 
 void Blinkt::setPixel(uint8_t pixel_number, const Pixel & pixel)
 {
-  _pixel_array[pixel_number] = pixel.toBusPixel();
+  _pixel_array[pixel_number] = pixel;
 }
 
 void Blinkt::display()
 {
+  // Convert pixels to bus pixels.
+  std::vector<BusPixel> bus_pixels;
+  bus_pixels.reserve(_pixel_array.size());
+  for (const auto & pixel : _pixel_array) {
+    bus_pixels.emplace_back(pixel.toBusPixel());
+  }
+
+  // Write bus pixels to bus.
   start_frame();
-  for (const auto pixel : _pixel_array) {
+  for (const auto pixel : bus_pixels) {
     write_byte(pixel.brightness);
     write_byte(pixel.blue);
     write_byte(pixel.green);
