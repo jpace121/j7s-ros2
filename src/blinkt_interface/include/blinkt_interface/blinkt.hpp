@@ -20,21 +20,6 @@
 namespace blinkt_interface
 {
 
-// Pixel as packed when sent over bus.
-struct BusPixel
-{
-  uint8_t red;
-  uint8_t green;
-  uint8_t blue;
-  uint8_t brightness;
-
-  BusPixel(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness)
-  : red{red}, green{green}, blue{blue}, brightness{brightness} {}
-
-  BusPixel()
-  : red{0}, green{0}, blue{0}, brightness{0} {}
-};
-
 // Pixel as seen by a user of the class.
 struct Pixel
 {
@@ -55,17 +40,31 @@ struct Pixel
   {
   }
 
+};
+typedef std::array<Pixel, 8> PixelArray;
 
-  BusPixel toBusPixel() const
+// Pixel as packed when sent over bus.
+struct BusPixel
+{
+  uint8_t red;
+  uint8_t green;
+  uint8_t blue;
+  uint8_t brightness;
+
+  BusPixel(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness)
+  : red{red}, green{green}, blue{blue}, brightness{brightness} {}
+
+  BusPixel()
+  : red{0}, green{0}, blue{0}, brightness{0} {}
+
+  BusPixel(const Pixel & pixel)
+  : red{pixel.red}, green{pixel.green}, blue{pixel.blue},
+    brightness{
+      static_cast<uint8_t>(0b11100000 | (static_cast<uint8_t>(pixel.brightness * 31.0) & 0x1F))
+    }
   {
-    return BusPixel(
-      red, green, blue,
-      static_cast<uint8_t>(
-        0b11100000 | (static_cast<uint8_t>(brightness * 31.0) & 0x1F)) );
   }
 };
-
-typedef std::array<Pixel, 8> PixelArray;
 
 class Blinkt
 {
@@ -81,6 +80,7 @@ private:
   void write_byte(uint8_t byte);
   void start_frame();
   void end_frame();
+  std::vector<BusPixel> getBusPixels() const;
 
   const unsigned int _data_pin_number{23};
   const unsigned int _clk_pin_number{24};

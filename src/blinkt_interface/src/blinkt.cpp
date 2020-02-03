@@ -38,6 +38,15 @@ PixelArray & Blinkt::getPixelArray()
   return _pixel_array;
 }
 
+std::vector<BusPixel> Blinkt::getBusPixels() const
+{
+  std::vector<BusPixel> bus_pixels;
+  for (const auto & pixel : _pixel_array) {
+    bus_pixels.emplace_back(pixel);
+  }
+  return bus_pixels;
+}
+
 void Blinkt::clear()
 {
   const Pixel offPixel(0, 0, 0, 0);
@@ -54,16 +63,9 @@ void Blinkt::setPixel(uint8_t pixel_number, const Pixel & pixel)
 
 void Blinkt::display()
 {
-  // Convert pixels to bus pixels.
-  std::vector<BusPixel> bus_pixels;
-  bus_pixels.reserve(_pixel_array.size());
-  for (const auto & pixel : _pixel_array) {
-    bus_pixels.emplace_back(pixel.toBusPixel());
-  }
-
   // Write bus pixels to bus.
   start_frame();
-  for (const auto pixel : bus_pixels) {
+  for (const auto pixel : getBusPixels()) {
     write_byte(pixel.brightness);
     write_byte(pixel.blue);
     write_byte(pixel.green);
