@@ -12,7 +12,7 @@ def generate_launch_description():
                 'freq': 1.0,
                 'led_index': 0,
                 'color': 'aqua',
-                'pub_freq': 100.0,
+                'pub_freq': 10.0,
                 'brightness': 0.5
             }],
             remappings = [
@@ -28,7 +28,7 @@ def generate_launch_description():
                 'freq': 2.0,
                 'led_index': 3,
                 'color': 'red',
-                'pub_freq': 100.0,
+                'pub_freq': 10.0,
                 'brightness': 0.5
             }],
             remappings = [
