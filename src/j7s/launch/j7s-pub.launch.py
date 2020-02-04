@@ -57,7 +57,7 @@ def generate_launch_description():
             node_name='green_pub',
             output='log',
             parameters=[{
-                'freq': 2.0,
+                'freq': 4.0,
                 'led_index': 3,
                 'color': 'green',
                 'pub_freq': 10.0,
