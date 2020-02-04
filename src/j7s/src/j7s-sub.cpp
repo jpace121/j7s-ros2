@@ -27,7 +27,8 @@ J7sSub::J7sSub()
   }
 
   _stateSub = create_subscription<j7s_msgs::msg::LedState>(
-    "led_state", 1, std::bind(&J7sSub::led_callback, this, std::placeholders::_1));
+    "led_state", rclcpp::QoS(rclcpp::KeepAll()),
+    std::bind(&J7sSub::led_callback, this, std::placeholders::_1));
 
   _timer = create_wall_timer(
     std::chrono::microseconds(static_cast<int>((1.0 / _disp_freq) * 1e6)),
