@@ -16,12 +16,12 @@
 
 int main(int argc, char * argv[])
 {
-  (void) argc;
-  (void) argv;
+    (void)argc;
+    (void)argv;
 
-  blinkt_interface::Blinkt blinkt{};
+    blinkt_interface::Blinkt blinkt{};
 
-  blinkt.setPixel(0, blinkt_interface::color::red(0.5));
-  blinkt.display();
-  return 0;
+    blinkt.setPixel(0, blinkt_interface::color::red(0.5));
+    blinkt.display();
+    return 0;
 }

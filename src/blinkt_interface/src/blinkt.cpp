@@ -17,95 +17,100 @@
 
 namespace blinkt_interface
 {
-
-Blinkt::Blinkt()
-: _pixel_array{},
-  _rpi_chip{"gpiochip0"},
-  _data_line{_rpi_chip.get_line(_data_pin_number)},
-  _clk_line{_rpi_chip.get_line(_clk_pin_number)}
+Blinkt::Blinkt() :
+    _pixel_array{},
+    _rpi_chip{"gpiochip0"},
+    _data_line{_rpi_chip.get_line(_data_pin_number)},
+    _clk_line{_rpi_chip.get_line(_clk_pin_number)}
 {
-  _data_line.request({"blinkt", gpiod::line_request::DIRECTION_OUTPUT, 0}, 0);
-  _clk_line.request({"blinkt", gpiod::line_request::DIRECTION_OUTPUT, 0}, 0);
+    _data_line.request({"blinkt", gpiod::line_request::DIRECTION_OUTPUT, 0}, 0);
+    _clk_line.request({"blinkt", gpiod::line_request::DIRECTION_OUTPUT, 0}, 0);
 }
 
 unsigned int Blinkt::number_of_pixels() const
 {
-  return _pixel_array.size();
+    return _pixel_array.size();
 }
 
 PixelArray & Blinkt::getPixelArray()
 {
-  return _pixel_array;
+    return _pixel_array;
 }
 
 std::vector<BusPixel> Blinkt::getBusPixels() const
 {
-  std::vector<BusPixel> bus_pixels;
-  for (const auto & pixel : _pixel_array) {
-    bus_pixels.emplace_back(pixel);
-  }
-  return bus_pixels;
+    std::vector<BusPixel> bus_pixels;
+    for (const auto & pixel : _pixel_array)
+    {
+        bus_pixels.emplace_back(pixel);
+    }
+    return bus_pixels;
 }
 
 void Blinkt::clear()
 {
-  const Pixel offPixel(0, 0, 0, 0);
-  for (auto & pixel : _pixel_array) {
-    pixel = offPixel;
-  }
-  display();
+    const Pixel offPixel(0, 0, 0, 0);
+    for (auto & pixel : _pixel_array)
+    {
+        pixel = offPixel;
+    }
+    display();
 }
 
 void Blinkt::setPixel(uint8_t pixel_number, const Pixel & pixel)
 {
-  _pixel_array[pixel_number] = pixel;
+    _pixel_array[pixel_number] = pixel;
 }
 
 void Blinkt::display()
 {
-  // Write bus pixels to bus.
-  start_frame();
-  for (const auto pixel : getBusPixels()) {
-    write_byte(pixel.brightness);
-    write_byte(pixel.blue);
-    write_byte(pixel.green);
-    write_byte(pixel.red);
-  }
-  end_frame();
+    // Write bus pixels to bus.
+    start_frame();
+    for (const auto pixel : getBusPixels())
+    {
+        write_byte(pixel.brightness);
+        write_byte(pixel.blue);
+        write_byte(pixel.green);
+        write_byte(pixel.red);
+    }
+    end_frame();
 }
 
 void Blinkt::write_byte(uint8_t byte)
 {
-  for (unsigned int cnt = 0; cnt < 8; cnt++) {
-    _data_line.set_value(byte & 0x80);
-    _clk_line.set_value(1);
-    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
-    byte = byte << 1;
-    _clk_line.set_value(0);
-    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
-  }
+    for (unsigned int cnt = 0; cnt < 8; cnt++)
+    {
+        _data_line.set_value(byte & 0x80);
+        _clk_line.set_value(1);
+        std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
+        byte = byte << 1;
+        _clk_line.set_value(0);
+        std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
+    }
 }
 
 void Blinkt::start_frame()
 {
-  _data_line.set_value(0);
-  for (unsigned int cnt = 0; cnt < 32; cnt++) {
-    _clk_line.set_value(1);
-    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
-    _clk_line.set_value(0);
-    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
-  }
+    _data_line.set_value(0);
+    for (unsigned int cnt = 0; cnt < 32; cnt++)
+    {
+        _clk_line.set_value(1);
+        std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
+        _clk_line.set_value(0);
+        std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
+    }
 }
 
 void Blinkt::end_frame()
 {
-  _data_line.set_value(0);
-  for (unsigned int cnt = 0; cnt < 36; cnt++) {
-    _clk_line.set_value(1);
-    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
-    _clk_line.set_value(0);
-    std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
-  }
+    _data_line.set_value(0);
+    for (unsigned int cnt = 0; cnt < 36; cnt++)
+    {
+        _clk_line.set_value(1);
+        std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
+        _clk_line.set_value(0);
+        std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time_us));
+    }
 }
 
 }  // namespace blinkt_interface

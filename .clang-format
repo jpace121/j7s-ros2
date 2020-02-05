@@ -2,18 +2,18 @@
 Language: Cpp
 BasedOnStyle: Google
 
-AccessModifierOffset: -2
+AccessModifierOffset: -4
 AlignAfterOpenBracket: AlwaysBreak
-BraceWrapping:
-  AfterClass: true
-  AfterFunction: true
-  AfterNamespace: true
-  AfterStruct: true
-BreakBeforeBraces: Custom
+BreakBeforeBraces: Allman
 ColumnLimit: 100
-ConstructorInitializerIndentWidth: 0
-ContinuationIndentWidth: 2
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
 DerivePointerAlignment: false
 PointerAlignment: Middle
 ReflowComments: false
+AllowShortBlocksOnASingleLine: false
+BreakConstructorInitializers: AfterColon
+BreakInheritanceList: AfterColon
+AllowShortFunctionsOnASingleLine: Inline
+IndentWidth: 4
 ...
