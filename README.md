@@ -10,3 +10,11 @@ Jungopons -
 
 Unless otherwise noted, all code is licensed Apache-2.0 and should not be
 considered stable.
+
+## Tips
+
+To reformat code, install `ament_clang_format` and run:
+```
+ament_clang_format --config ./.clang-format --reformat
+```
+
