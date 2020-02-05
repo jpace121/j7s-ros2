@@ -31,7 +31,6 @@ int main(int argc, char * argv[])
         blinkt.display();
         std::this_thread::sleep_for(1s);
         pixel = blinkt_interface::color::off(0.5);
-        blinkt.display();
     }
     return 0;
 }

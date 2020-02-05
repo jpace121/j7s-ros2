@@ -59,7 +59,10 @@ void Blinkt::clear()
 
 void Blinkt::setPixel(uint8_t pixel_number, const Pixel & pixel)
 {
-    _pixel_array[pixel_number] = pixel;
+    if(pixel_number < _pixel_array.size())
+    {
+        _pixel_array[pixel_number] = pixel;
+    }
 }
 
 void Blinkt::display()
