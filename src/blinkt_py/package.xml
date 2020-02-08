@@ -10,7 +10,7 @@
   <buildtool_depend>ament_python</buildtool_depend>
 
   <build_depend>blinkt_interface</build_depend>
-  <build_depend>pybind11_vendor</build_depend>
+  <build_depend>pybind11</build_depend>
 
   <export>
     <build_type>ament_python</build_type>
