@@ -28,6 +28,7 @@ add_executable(j7s-sub src/j7s-sub.cpp)
 target_include_directories(j7s-sub PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
+target_link_libraries(j7s-sub blinkt_interface::blinkt)
 ament_target_dependencies(
   j7s-sub
   rclcpp
