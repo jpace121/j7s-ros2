@@ -26,7 +26,11 @@ PYBIND11_MODULE(blinkt_interface, m) {
         .def_readwrite("blue", &Pixel::blue)
         .def_readwrite("brightness", &Pixel::brightness)
         .def(py::init<uint8_t, uint8_t, uint8_t, double>())
-        .def(py::init<>());
+        .def(py::init<>())
+        .def("set", [](Pixel& orig_value, const Pixel& new_value)
+                    {
+                        orig_value = new_value;
+                    });
 
     py::class_<Blinkt>(m, "Blinkt")
         .def(py::init<>())
