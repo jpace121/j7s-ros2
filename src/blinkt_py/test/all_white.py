@@ -7,6 +7,6 @@ blinkt = Blinkt()
 white = Pixel(255, 255, 255, 0.5)
 
 for pixel in blinkt.getPixelArray():
-    pixel.swap(white)
+    pixel.set(white)
 
 blinkt.display()
