@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 from blinkt_interface import Blinkt, Pixel
+import blinkt_interface.color as color
 
 blinkt = Blinkt()
 
-white = Pixel(255, 255, 255, 0.5)
-
 for pixel in blinkt.getPixelArray():
-    pixel.set(white)
+    pixel.set(color.white(0.5))
 
 blinkt.display()

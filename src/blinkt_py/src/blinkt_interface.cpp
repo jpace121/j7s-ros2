@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include <blinkt_interface/blinkt.hpp>
+#include <blinkt_interface/color.hpp>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
@@ -39,4 +40,13 @@ PYBIND11_MODULE(blinkt_interface, m) {
         .def("display", &Blinkt::display)
         .def("clear", &Blinkt::clear)
         .def("number_of_pixels", &Blinkt::number_of_pixels);
+
+    m.def_submodule("color")
+        .def("red", &color::red)
+        .def("lime", &color::lime)
+        .def("green", &color::green)
+        .def("blue", &color::blue)
+        .def("white", &color::white)
+        .def("aqua", &color::aqua)
+        .def("off", &color::off);
 }
