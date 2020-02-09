@@ -1,3 +1,5 @@
+# Adapted from https://github.com/pybind/cmake_example.
+# See ./LICENSE for full license text.
 import os
 import re
 import sys
@@ -66,7 +68,7 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=False,
-    maintainer='jimmy',
+    maintainer='James Pace',
     maintainer_email='jpace121@gmail.com',
     description='TODO: Package description',
     ext_modules=[CMakeExtension('cmake_example')],
