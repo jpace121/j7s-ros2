@@ -14,6 +14,7 @@
 
 #include <blinkt_interface/blinkt.hpp>
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 
 namespace py = pybind11;
 using namespace blinkt_interface;
@@ -30,6 +31,7 @@ PYBIND11_MODULE(blinkt_interface, m) {
     py::class_<Blinkt>(m, "Blinkt")
         .def(py::init<>())
         .def("setPixel", &Blinkt::setPixel)
+        .def("getPixelArray", &Blinkt::getPixelArray, py::return_value_policy::reference_internal)
         .def("display", &Blinkt::display)
         .def("clear", &Blinkt::clear)
         .def("number_of_pixels", &Blinkt::number_of_pixels);
