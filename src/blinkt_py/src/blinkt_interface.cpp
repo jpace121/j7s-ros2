@@ -12,15 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <blinkt_interface/blinkt.hpp>
-#include <blinkt_interface/color.hpp>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <blinkt_interface/blinkt.hpp>
+#include <blinkt_interface/color.hpp>
 
 namespace py = pybind11;
 using namespace blinkt_interface;
 
-PYBIND11_MODULE(blinkt_interface, m) {
+PYBIND11_MODULE(blinkt_interface, m)
+{
     py::class_<Pixel>(m, "Pixel")
         .def_readwrite("red", &Pixel::red)
         .def_readwrite("green", &Pixel::green)
@@ -28,10 +29,7 @@ PYBIND11_MODULE(blinkt_interface, m) {
         .def_readwrite("brightness", &Pixel::brightness)
         .def(py::init<uint8_t, uint8_t, uint8_t, double>())
         .def(py::init<>())
-        .def("set", [](Pixel& orig_value, const Pixel& new_value)
-                    {
-                        orig_value = new_value;
-                    });
+        .def("set", [](Pixel & orig_value, const Pixel & new_value) { orig_value = new_value; });
 
     py::class_<Blinkt>(m, "Blinkt")
         .def(py::init<>())
