@@ -47,7 +47,7 @@ ament_target_dependencies(
 )
 
 install(TARGETS j7s-sub j7s-pub
-  EXPORT export_${PROJECT_NAME}
+  EXPORT ${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY
