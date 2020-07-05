@@ -6,7 +6,7 @@ def generate_launch_description():
     return LaunchDescription([
         launch_ros.actions.Node(
             package='j7s',
-            node_executable='j7s-sub',
+            executable='j7s-sub',
             output='log',
             parameters = [{
                 "disp_freq" : 100.0

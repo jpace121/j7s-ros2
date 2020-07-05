@@ -5,8 +5,8 @@ def generate_launch_description():
     return LaunchDescription([
         launch_ros.actions.Node(
             package='j7s',
-            node_executable='j7s-pub',
-            node_name='aqua_pub',
+            executable='j7s-pub',
+            name='aqua_pub',
             output='log',
             parameters=[{
                 'freq': 0.5,
@@ -21,8 +21,8 @@ def generate_launch_description():
         ),
         launch_ros.actions.Node(
             package='j7s',
-            node_executable='j7s-pub',
-            node_name='red_pub',
+            executable='j7s-pub',
+            name='red_pub',
             output='log',
             parameters=[{
                 'freq': 1.0,
@@ -37,8 +37,8 @@ def generate_launch_description():
         ),
         launch_ros.actions.Node(
             package='j7s',
-            node_executable='j7s-pub',
-            node_name='white_pub',
+            executable='j7s-pub',
+            name='white_pub',
             output='log',
             parameters=[{
                 'freq': 2.0,
@@ -53,8 +53,8 @@ def generate_launch_description():
         ),
         launch_ros.actions.Node(
             package='j7s',
-            node_executable='j7s-pub',
-            node_name='green_pub',
+            executable='j7s-pub',
+            name='green_pub',
             output='log',
             parameters=[{
                 'freq': 4.0,
