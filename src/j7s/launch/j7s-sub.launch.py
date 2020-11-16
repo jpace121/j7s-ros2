@@ -8,9 +8,7 @@ def generate_launch_description():
             package='j7s',
             executable='j7s-sub',
             output='log',
-            parameters = [{
-                "disp_freq" : 100.0
-                }],
+            parameters = [{}],
             remappings = [
                 ('led_state', 'j7s_led_state')
             ]
