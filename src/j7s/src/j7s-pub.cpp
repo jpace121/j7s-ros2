@@ -18,11 +18,11 @@
 
 J7sPub::J7sPub() :
     Node("j7s_publisher"),
-    _freq{declare_parameter("freq").get<double>()},
-    _led_index{declare_parameter("led_index").get<long int>()},
-    _color{string_to_color(declare_parameter("color").get<std::string>())},
-    _pub_freq{declare_parameter("pub_freq").get<double>()},
-    _brightness{declare_parameter("brightness").get<double>()},
+    _freq{declare_parameter<double>("freq")},
+    _led_index{declare_parameter<long int>("led_index")},
+    _color{string_to_color(declare_parameter<std::string>("color"))},
+    _pub_freq{declare_parameter<double>("pub_freq")},
+    _brightness{declare_parameter<double>("brightness")},
     _publisher{create_publisher<j7s_msgs::msg::LedState>("led_state", 1)},
     _timer{}
 {
