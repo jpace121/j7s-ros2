@@ -32,7 +32,6 @@ target_link_libraries(j7s-sub blinkt_interface::blinkt)
 ament_target_dependencies(
   j7s-sub
   rclcpp
-  blinkt_interface
   j7s_msgs
 )
 
